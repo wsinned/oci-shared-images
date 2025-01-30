@@ -1,0 +1,10 @@
+FROM fedora41-python:latest
+
+RUN dnf install -y clang clang-devel cmake llvm llvm-devel lld lld-devel libxml2-devel && \
+dnf clean all
+
+# compile zig source here
+COPY build-zig /usr/bin
+
+# This takes ~10 mins - only do this when necessary
+# RUN /usr/bin/build-zig

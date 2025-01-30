@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo
+id
+echo
+
+cd /var/home/klmcw/src/github.com/ziglang/zig
+
+rm -fr build
+mkdir build
+cd build
+
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=~/.local ..
+
+make -j 4 install
