@@ -166,6 +166,9 @@ fedora41-python-dx
 ```
 </details>
 
+## Example Consumer Project
+
+Please see [klmcwhirter/pi-day-2025-with-py](https://github.com/klmcwhirter/pi-day-2025-with-py) for a sample project that uses `fedora41-python-dx:latest` in a dev container.
 
 ## References
 1. https://universal-blue.discourse.group/t/bluefin-use-docker-distrobox-container-in-vscode/6195/1
