@@ -16,13 +16,15 @@ As a developer using one of the bluefin-dx bootc images, I would like:
 	- but multiple versions of `zig` can be accomplished with multiple image tags (e.g., `0.13` vs `nightly`)
 	- the version is managed by changing the value of a single ARG or shell variable (as appropriate)
 - such that most of the layers (think HD space utilization) will be shared between the `distrobox` and `devcontainer`
+- help avoid *host layering* and the need for *custom OS image*
 
 ## Tool Installation Proposed Policy
 Tools, libraries, etc. could be installed in different locations for varying reasons.
 
 | Where             | Proposed Policy |
 | -- | --- |
-| ~~Host Layering~~ | Avoid at all cost as this defeats the purpose of the deployment model used by bluefin |
+| ~~Custom Image~~ | Avoid as this is expensive (time, cloud resources) and wasteful as it should not be needed - I like bluefin |
+| ~~Host Layering~~ | Avoid at all cost as this defeats the purpose of the deployment model used by bluefin, and can complicate updates |
 | Flatpak           | Apps that run close to the host - *not pertinent to this experiment* |
 | `$HOME`           | If needed on host as well as in containers<br>- where versioning roughly matches that of the host OS package version (meaning version available in Fedora WS in my case)<br>- can also be used in situations where a specific version needs to be built from source; tested close to the metal as well as in containers<br>- or tool is needed on host as well as containers (e.g., installed via `curl` script)<br>- typically installed with `PREFIX=~/.local` or equiv. |
 | Base Image(s)     | All tools, libraries, etc. that are needed in a majority of containers<br>- can install multiple tool versions (with unique names or install locations)<br>- where versioning is typically at pace with image OS package(s)<br>- to maximize layer reuse |
