@@ -23,5 +23,5 @@ fi
 # id ${USER}; \
 #
 
-USER ${NEW_UID}:${NEW_UID}
+USER ${NEW_UID}:${NEW_GID}
 WORKDIR /var/home/${USER}
