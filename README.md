@@ -1,10 +1,26 @@
 # Bluefin - rely on OCI layer sharing for distrobox and devcontainer
 
+ [![project bluefin](./docs/project-bluefin.svg)](https://projectbluefin.io/)
+ 
+As I began using bluefin on my production laptop I was really challenged to rethink my assumptions on how to use and manage a development linux workstation.
+
+I have been relying on cloud native technology for many years to enable my development workflow. For several years I had k3s installed on a Raspberry Pi cluster, because, why not? If my code runs on armv7 then it will have no problem running in an x86_64 context.
+
+Right before I started using bluefin I had let go of k3s and went back to using docker compose to build and run projects locally.
+
+Using bluefin, I finally had a reason to dive deep into using [Dev Containers in vscode](https://code.visualstudio.com/docs/devcontainers/containers). And so the experimentation began...
+
 Of the 3 experiments I have performed so far, this one seems to offer the best balance of features and HD space utilization.
 
 - [Bluefin - use podman distrobox container in vscode](https://universal-blue.discourse.group/t/bluefin-use-podman-distrobox-container-in-vscode/6193)
 - [Bluefin - use docker distrobox container in vscode](https://universal-blue.discourse.group/t/bluefin-use-docker-distrobox-container-in-vscode/6195)
 - Bluefin - rely on OCI layer sharing for distrobox and devcontainer
+
+> [!IMPORTANT]
+> What I am presenting in this repo is a sample implementation of some ideas. You should not think of this repo as code that you can clone and use as is. Your requirements are going to be different than mine. Be prepared to heavily modify or even rewrite what is here.
+>
+> The files herein are simply a sample implementation of the ideas presented below.
+
 
 ## Problem Statement
 
