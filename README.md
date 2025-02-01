@@ -1,7 +1,7 @@
 # Bluefin - rely on OCI layer sharing for distrobox and devcontainer
 
  [![project bluefin](./docs/project-bluefin.svg)](https://projectbluefin.io/)
- 
+
 As I began using bluefin on my production laptop I was really challenged to rethink my assumptions on how to use and manage a development linux workstation.
 
 I have been relying on cloud native technology for many years to enable my development workflow. For several years I had k3s installed on a Raspberry Pi cluster, because, why not? If my code runs on armv7 then it will have no problem running in an x86_64 context.
@@ -17,7 +17,10 @@ Of the 3 experiments I have performed so far, this one seems to offer the best b
 - Bluefin - rely on OCI layer sharing for distrobox and devcontainer
 
 > [!IMPORTANT]
-> What I am presenting in this repo is a sample implementation of some ideas. You should not think of this repo as code that you can clone and use as is. Your requirements are going to be different than mine. Be prepared to heavily modify or even rewrite what is here.
+>
+> What I am providing in this repo is a sample implementation of some ideas.
+>
+> You should not think of this repo as code that you can clone and use as is. Your requirements are going to be different than mine. Be prepared to heavily modify or even rewrite what is here.
 >
 > The files herein are simply a sample implementation of the ideas presented below.
 
