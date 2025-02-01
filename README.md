@@ -187,6 +187,24 @@ fedora41-python-dx
 ```
 </details>
 
+## Podman Distrobox Compatibility
+
+There is a downside to strictly using `docker` to get the most out of `vscode` devcontainers.
+
+The Ptyxis container integration does not work with `docker`. And there are no current plans to add it. Ptyxis integrates with `podman`.
+
+Well, guess what? the `fedora-*-dx` images are OCI images. They can be pushed or imported to a repo accessible by `podman`.
+
+And then just set distrobox to use the `podman` image and runtime, then assemble.
+
+```bash
+export DBX_CONTAINER_MANAGER=podman
+
+DBX_CONTAINER_ALWAYS_PULL=0 distrobox assemble create --replace --name fedora41-python-dx
+```
+
+I am not doing that because I am focused on minimizing duplication and HD space utilization.
+
 ## Example Consumer Project
 
 Please see [klmcwhirter/pi-day-2025-with-py](https://github.com/klmcwhirter/pi-day-2025-with-py) for a sample project that uses `fedora41-python-dx:latest` in a dev container.
