@@ -74,7 +74,7 @@ fedora-go-dx fedora41-python-dx  fedora41-zig-dx    adds USER, GROUP - built wit
 ## Guiding Principles
 1. Keep the most common things that should be shared higher up in the hierarchy
 2. Keep things that are specific (especially version specific) lower in the hierarchy
-3. The final layer cannot be shared (`-dx` layer) but are built using a common parameterized build (`Containerfile.img-dx`) for repeatability
+3. The final layers cannot be shared (`-dx` layers) but are built using a common parameterized build ([Containerfile.img-dx](./fedora/Containerfile.img-dx)) for repeatability
 4. Both `distrobox` and `devcontainer` use `fedora41-*-dx` images and bind mount `$HOME` dir.
 5. All activities that mutate the file system are constrained to `$HOME`, `/tmp`, etc. to eliminate OCI image layer Copy-on-Write (CoW) operations.
 6. Images and containers are periodically re-created to:
@@ -118,6 +118,11 @@ When using the `fedora41-*-dx` images in a devcontainer please make sure to do t
 
 </details>
 
+> Note that the Microsoft [*templates*](https://containers.dev/templates) and [*features*](https://containers.dev/features) are based on Ubuntu and not Fedora. So please do not expect them to work with the images described here whose base image is `ghcr.io/ublue-os/fedora-toolbox:latest`.
+> 
+> Since my goal is to minimize duplication and HD space utilization I am not heading down that path. Although the idea is good for a sizeable organization to share working image snippets.
+> 
+> I am going to rely on parameterized images as a means of sharing work - e.g., [Containerfile.img-dx](./fedora/Containerfile.img-dx).
 
 ## Amount of Reusability
 
