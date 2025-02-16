@@ -20,7 +20,7 @@ function _logbar
 #*----------------------------------------------------------------------------*
 function show_imgs_layers
 {
-    local imgs=$(${DBX_CONTAINER_MANAGER} image ls --format json | jq -r .Repository)
+    local imgs=$(${DBX_CONTAINER_MANAGER} image ls --format json | jq -r '.Repository | select(. != "<none>")' | sort)
     local img
     for img in ${imgs}
     do
