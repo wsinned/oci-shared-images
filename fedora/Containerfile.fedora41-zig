@@ -1,6 +1,6 @@
 FROM fedora41-python:latest
 
-RUN dnf install -y clang clang-devel cmake llvm llvm-devel lld lld-devel libxml2-devel && \
+RUN dnf update -y && dnf install -y clang clang-devel cmake llvm llvm-devel lld lld-devel libxml2-devel && \
 dnf clean all
 
 # compile zig source here
