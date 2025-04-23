@@ -10,16 +10,16 @@
 # CM_OPTS="BUILDKIT_PROGRESS=plain"
 CM_OPTS=""
 
-#BASE_IMGS=(fedora41-dev-base fedora41-python fedora41-go fedora41-zig)
-BASE_IMGS=(fedora41-dev-base fedora41-python)
+#BASE_IMGS=(fedora41-dev-base fedora41-dotnet fedora41-python fedora41-go fedora41-zig)
+BASE_IMGS=(fedora41-dev-base fedora41-python fedora41-dotnet)
 
 # Note these each must match one of BASE_IMGS adding '-dx' suffix
-#DX_IMGS=(fedora41-go-dx fedora41-python-dx fedora41-zig-dx)
-DX_IMGS=(fedora41-python-dx)
+#DX_IMGS=(fedora41-dotnet-dx fedora41-go-dx fedora41-python-dx fedora41-zig-dx)
+DX_IMGS=(fedora41-dotnet-dx fedora41-python-dx)
 
 IMG_NAMES=(${BASE_IMGS[@]} ${DX_IMGS[@]})
 
-ASSEMBLE_IMG_IDXS=(0)  # control which to assemble
+ASSEMBLE_IMG_IDXS=(0 1)  # control which to assemble
 
 export DBX_CONTAINER_MANAGER=docker
 
