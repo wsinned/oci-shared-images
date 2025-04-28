@@ -1,0 +1,4 @@
+FROM ghcr.io/ublue-os/debian-toolbox:latest
+
+RUN apt-get update -y && \
+apt-get install -y git vim tmux fzf zoxide nodejs jq yq  # no fastfetch

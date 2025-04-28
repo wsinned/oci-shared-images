@@ -6,6 +6,14 @@
 #* Showe layers for defined images
 #*----------------------------------------------------------------------------*
 
+if $(which yq >/dev/null 2>&1)
+then
+    true
+else
+    echo "$0 depends on yq - not found in path"
+    exit 2
+fi
+
 export DBX_CONTAINER_MANAGER=docker
 
 #*----------------------------------------------------------------------------*
@@ -20,12 +28,12 @@ function _logbar
 #*----------------------------------------------------------------------------*
 function show_imgs_layers
 {
-    local imgs=$(${DBX_CONTAINER_MANAGER} image ls --format json | jq -r '.Repository | select(. != "<none>")' | sort)
+    local imgs=$(${DBX_CONTAINER_MANAGER} image ls --format json | yq -p=j 'select(.Repository != "<none>") | (.Repository + ":" + .Tag)' | sed '/---/d' | sort)
     local img
     for img in ${imgs}
     do
         _logbar ${img}
-        ${DBX_CONTAINER_MANAGER} inspect --format json ${img}:latest | jq -r .[0].RootFS.Layers
+        ${DBX_CONTAINER_MANAGER} inspect --format json ${img} | yq -P .[0].RootFS.Layers
     done
 }
 #*----------------------------------------------------------------------------*

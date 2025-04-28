@@ -1,6 +1,7 @@
-ARG IMG="fedora41-dev-base"
+ARG IMG="debian"
+ARG TAG="latest"
 
-FROM $IMG:latest
+FROM $IMG:$TAG
 ARG USER
 ARG UID=1000
 ARG GID=1000

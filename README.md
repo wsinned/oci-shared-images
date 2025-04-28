@@ -24,6 +24,19 @@ Of the 3 experiments I have performed so far, this one seems to offer the best b
 >
 > The files herein are simply a sample implementation of the ideas presented below.
 
+### Table of Contents
+
+- [Problem Statement](#problem-statement)
+- [Tool Installation Proposed Policy](#tool-installation-proposed-policy)
+- [Image Hierarchy](#image-hierarchy)
+- [Guiding Principles](#guiding-principles)
+- [Amount of Reusability](#amount-of-reusability)
+- [Dev Container Specific Concerns](#dev-container-specific-concerns)
+- [Podman Distrobox Compatibility](#podman-distrobox-compatibility)
+- [Example Consumer Project](#example-consumer-project)
+- [Scripts and Sample Config](#scripts-and-sample-config)
+- [Sample Config Structure](#sample-config-structure)
+- [References](#references)
 
 ## Problem Statement
 
@@ -47,7 +60,7 @@ Tools, libraries, etc. could be installed in different locations for varying rea
 | Flatpak           | Apps that run close to the host - *not pertinent to this experiment* |
 | `$HOME`           | If needed on host as well as in containers<br>- where versioning roughly matches that of the host OS package version (meaning version available in Fedora WS in my case)<br>- can also be used in situations where a specific version needs to be built from source; tested close to the metal as well as in containers<br>- or tool is needed on host as well as containers (e.g., installed via `curl` script)<br>- typically installed with `PREFIX=~/.local` or equiv. |
 | Base Image(s)     | All tools, libraries, etc. that are needed in a majority of containers<br>- can install multiple tool versions (with unique names or install locations)<br>- where versioning is typically at pace with image OS package(s)<br>- to maximize layer reuse |
-| Other Images      | as needed for projects<br>- separate image tags per tool version - e.g., zig `0.13` vs `nightly`<br>- contains only dependencies for that tool env<br>- built from source or installed with OS (or other) package manager, or `curl` deployment script |
+| Other Images      | as needed for projects<br>-separate image tags per tool version - e.g., zig `0.13` vs `nightly`<br>- contains only dependencies for that tool env<br>- built from source or installed with OS (or other) package manager, or `curl` deployment script |
 | ~~`-dx` layer~~   | customization is **N/A**<br>- only contains UID / GID mapping to support `$HOME` bind mount<br>- always the last layer<br>- kept as light as possible because these layers are not shared |
 | ~~Distrobox~~     | avoid - defer to OCI images |
 | Dev Container     | avoid if can, but flexibility is available<br>- specialized tool version for individual projects; vscode extensions, etc.<br>  - typically not shared across repos / branches<br>- or where cloned repo already contains .devcontainer spec<br>- much less layer sharing |
@@ -60,7 +73,7 @@ This is just an example of my current setup. It will change drastically over tim
 ```
         ghcr.io/ublue-os/fedora-toolbox:latest
                         |
-                fedora41-dev-base                   includes git, vscode, emacs, info. vim, tmux, fastfetch, fzf, zoxide
+                fedora41-dev-base                   includes git, vscode, emacs, info, vim, tmux, fastfetch, fzf, zoxide, jq, yq
                         |
                 fedora41-python                     includes py313, py314, py314t, tkinter, tk, gitk
                /        |       \
@@ -81,48 +94,6 @@ fedora-go-dx fedora41-python-dx  fedora41-zig-dx    adds USER, GROUP - built wit
 	- update container internals efficiently
 	- clean up no longer needed containers, images, volumes
 	- focus on what is needed right now to minimize HD space utilization
-
-## Dev Container Specific Concerns
-> Note that `vscode` is installed in `fedora41-dev-base` for `vscode-server` primarily. This is required by the **Dev Containers** `vscode` extension.
-
-When using the `fedora41-*-dx` images in a devcontainer please make sure to do the following.
-
-- Reference the local image
-- set the `$HOME` and `$USER` env vars
-- mount the `$HOME` dir as a bind mount
-- set `remoteUser` to whatever `$USER` is in use - the OCI image is setup so that the `$UID` and `GID` are created to be the same to simplify working in the `$HOME` dir
-
-<details>
-<summary>Expand to see sample devcontainer.json snippet</summary>
-
-```json
-{
-	"name": "my-devcontainer-project",
-	"image": "fedora41-python-dx:latest",
-	"containerEnv": {
-		"HOME": "/var/home/klmcw",
-		...
-		"USER": "klmcw"
-	},
-	"mounts": [
-		{
-			"source": "/var/home/klmcw",
-			"target": "/var/home/klmcw",
-			"type": "bind"
-		}
-	],
-  ...
-  "remoteUser": "klmcw"
-}
-```
-
-</details>
-
-> Note that the Microsoft [*templates*](https://containers.dev/templates) and [*features*](https://containers.dev/features) are based on Ubuntu and not Fedora. So please do not expect them to work with the images described here whose base image is `ghcr.io/ublue-os/fedora-toolbox:latest`.
-> 
-> Since my goal is to minimize duplication and HD space utilization I am not heading down that path. Although the idea is good for a sizeable organization to share working image snippets.
-> 
-> I am going to rely on parameterized images as a means of sharing work - e.g., [Containerfile.img-dx](./fedora/Containerfile.img-dx).
 
 ## Amount of Reusability
 
@@ -192,6 +163,48 @@ fedora41-python-dx
 ```
 </details>
 
+## Dev Container Specific Concerns
+> Note that `vscode` is installed in `fedora41-dev-base` for `vscode-server` primarily. This is required by the **Dev Containers** `vscode` extension.
+
+When using the `fedora41-*-dx` images in a devcontainer please make sure to do the following.
+
+- Reference the local image
+- set the `$HOME` and `$USER` env vars
+- mount the `$HOME` dir as a bind mount
+- set `remoteUser` to whatever `$USER` is in use - the OCI image is setup so that the `$UID` and `GID` are created to be the same to simplify working in the `$HOME` dir
+
+<details>
+<summary>Expand to see sample devcontainer.json snippet</summary>
+
+```json
+{
+	"name": "my-devcontainer-project",
+	"image": "fedora41-python-dx:latest",
+	"containerEnv": {
+		"HOME": "/var/home/klmcw",
+		...
+		"USER": "klmcw"
+	},
+	"mounts": [
+		{
+			"source": "/var/home/klmcw",
+			"target": "/var/home/klmcw",
+			"type": "bind"
+		}
+	],
+  ...
+  "remoteUser": "klmcw"
+}
+```
+
+</details>
+
+> Note that the Microsoft [*templates*](https://containers.dev/templates) and [*features*](https://containers.dev/features) are based on Ubuntu and not Fedora. So please do not expect them to work with the images described here whose base image is `ghcr.io/ublue-os/fedora-toolbox:latest`.
+> 
+> Since my goal is to minimize duplication and HD space utilization I am not heading down that path. Although the idea is good for a sizeable organization to share working image snippets.
+> 
+> I am going to rely on parameterized images as a means of sharing work - e.g., [Containerfile.img-dx](./fedora/Containerfile.img-dx).
+
 ## Podman Distrobox Compatibility
 
 There is a downside to strictly using `docker` to get the most out of `vscode` devcontainers.
@@ -213,6 +226,39 @@ I am not doing that because I am focused on minimizing duplication and HD space 
 ## Example Consumer Project
 
 Please see [klmcwhirter/pi-day-2025-with-py](https://github.com/klmcwhirter/pi-day-2025-with-py) for a sample project that uses `fedora41-python-dx:latest` in a dev container.
+
+## Scripts and Sample Config
+
+The main script is [`ocisictl`](./ocisictl). It will create all of the OCI images and assemble distroboxen.
+> "2 things are hard in programming: cache invalidation, **naming things** and off-by-one errors."
+>
+> -many contributors
+
+_I am bad at naming. It stands for **oci**-**s**hared-**i**mage **c**on**t**ro**l**._
+
+It relies on the `yq` utility to inspect the configuration. You can install it with `brew install yq`.
+
+`ocisictl` uses a config file - [`ocisictl.yaml`](./ocisictl.yaml) to declare the image hierarchy and which containers to assemble.
+
+If the `--prune` arg is passed as the first script parameter it will stop all running containers and perform a `docker system prune -af --volumes` command before getting started.
+
+Another script, [`show_img_layers.sh`](./show_img_layers.sh) will show the layers of the built images as a means of showing layer reuse.
+
+### Sample Config Structure
+The supplied `ocisictl.yaml` file is setup to produce the graph above. It also creates `debian:bookworm` and `debian-bookworm-dx` to highlight how one might create multiple hierarchies if needed.
+
+The file is a YAML list where each item in the list represents and image to create and, optionally, a distrobox to assemble.
+
+|Property|Description|Sample Value|
+| --- | --- | --- |
+|**Image Creation**|||
+|name|the image name; maps to Containerfile._name_|fedora41-python-dx|
+|path|the directory containing Containerfile._name_|fedora41|
+|tag|the image tag to use; defaults to _latest_|0.14.0|
+|enabled|whether to process this item or not; defaults to `false`|true (or false)|
+|**Distrobox Assembly**|||
+|distrobox|override the name for the assemble step; defaults to _name_|debian-bookworm-dx|
+|assemble|whether to assemble or not; defaults to true if _name_ ends with `-dx`|true (or false)|
 
 ## References
 1. https://universal-blue.discourse.group/t/bluefin-use-docker-distrobox-container-in-vscode/6195/1
