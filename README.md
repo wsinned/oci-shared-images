@@ -14,7 +14,7 @@ Of the 3 experiments I have performed so far, this one seems to offer the best b
 
 - [Bluefin - use podman distrobox container in vscode](https://universal-blue.discourse.group/t/bluefin-use-podman-distrobox-container-in-vscode/6193)
 - [Bluefin - use docker distrobox container in vscode](https://universal-blue.discourse.group/t/bluefin-use-docker-distrobox-container-in-vscode/6195)
-- Bluefin - rely on OCI layer sharing for distrobox and devcontainer
+- [Bluefin - rely on OCI layer sharing for distrobox and devcontainer](https://universal-blue.discourse.group/t/bluefin-rely-on-oci-layer-sharing-for-distrobox-and-devcontainer/6519)
 
 > [!IMPORTANT]
 >
@@ -87,7 +87,7 @@ fedora-go-dx fedora41-python-dx  fedora41-zig-dx    adds USER, GROUP - built wit
 ## Guiding Principles
 1. Keep the most common things that should be shared higher up in the hierarchy
 2. Keep things that are specific (especially version specific) lower in the hierarchy
-3. The final layers cannot be shared (`-dx` layers) but are built using a common parameterized build ([Containerfile.img-dx](./fedora/Containerfile.img-dx)) for repeatability
+3. The final layers cannot be shared (`-dx` layers) but are built using a common parameterized build ([Containerfile.img-dx](./fedora41/Containerfile.img-dx)) for repeatability
 4. Both `distrobox` and `devcontainer` use `fedora41-*-dx` images and bind mount `$HOME` dir.
 5. All activities that mutate the file system are constrained to `$HOME`, `/tmp`, etc. to eliminate OCI image layer Copy-on-Write (CoW) operations.
 6. Images and containers are periodically re-created to:
@@ -203,7 +203,7 @@ When using the `fedora41-*-dx` images in a devcontainer please make sure to do t
 > 
 > Since my goal is to minimize duplication and HD space utilization I am not heading down that path. Although the idea is good for a sizeable organization to share working image snippets.
 > 
-> I am going to rely on parameterized images as a means of sharing work - e.g., [Containerfile.img-dx](./fedora/Containerfile.img-dx).
+> I am going to rely on parameterized images as a means of sharing work - e.g., [Containerfile.img-dx](./fedora41/Containerfile.img-dx).
 
 ## Podman Distrobox Compatibility
 
@@ -245,7 +245,7 @@ If the `--prune` arg is passed as the first script parameter it will stop all ru
 Another script, [`show_img_layers.sh`](./show_img_layers.sh) will show the layers of the built images as a means of showing layer reuse.
 
 ### Sample Config Structure
-The supplied `ocisictl.yaml` file is setup to produce the graph above. It also creates `debian:bookworm` and `debian-bookworm-dx` to highlight how one might create multiple hierarchies if needed.
+The supplied [`ocisictl.yaml`](./ocisictl.yaml) file is setup to produce the graph above. It also creates `debian:bookworm` and `debian-bookworm-dx` to highlight how one might create multiple hierarchies if needed.
 
 The file is a YAML list where each item in the list represents and image to create and, optionally, a distrobox to assemble.
 
