@@ -1,0 +1,5 @@
+FROM bluefin-cli-dev-base:latest
+
+RUN curl -fsSL https://deno.land/install.sh | sh && \
+  mv /root/.deno/bin/deno /usr/local/bin/deno
+

@@ -2,52 +2,30 @@
 # order *is* significant in this file
 # order here establishes processing order
 
-- name: fedora41-dev-base
-  path: fedora41
+- name: bluefin-cli-dev-base
+  path: bluefin-cli
   enabled: true
 
-- name: fedora41-python
-  path: fedora41
+
+- name: bluefin-cli-deno
+  path: bluefin-cli
   enabled: true
-- name: fedora41-python-dx
-  path: fedora41
+- name: bluefin-cli-deno-dx
+  path: bluefin-cli
   enabled: true
   assemble: true
 
-- name: fedora41-dotnet
-  path: fedora41
-  enabled: false
-- name: fedora41-dotnet-dx
-  path: fedora41
-  enabled: false
+# - name: fedora41-python
+#   path: fedora41
+#   enabled: false
+# - name: fedora41-python-dx
+#   path: fedora41
+#   enabled: false
+#   assemble: false
 
-- name: fedora41-go
-  path: fedora41
-  enabled: false
-- name: fedora41-go-dx
-  path: fedora41
-  enabled: false
-  assemble: false
-
-- name: fedora41-zig
-  path: fedora41
-  tag: 0.14.0
-  enabled: false
-- name: fedora41-zig-dx
-  path: fedora41
-  tag: 0.14.0
-  enabled: false
-  distrobox: fedora41-zig-14-dx
-  assemble: false
-
-
-- name: debian
-  path: debian
-  tag: bookworm
-  enabled: true
-- name: debian-dx
-  path: debian
-  tag: bookworm
-  enabled: true
-  distrbox: debian-bookworm-dx
-  assemble: true
+# - name: fedora41-dotnet
+#   path: fedora41
+#   enabled: false
+# - name: fedora41-dotnet-dx
+#   path: fedora41
+#   enabled: false

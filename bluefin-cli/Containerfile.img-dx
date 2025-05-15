@@ -1,4 +1,4 @@
-ARG IMG="debian"
+ARG IMG="bluefin-cli-dev-base"
 ARG TAG="latest"
 
 FROM $IMG:$TAG
@@ -17,12 +17,9 @@ then \
 sudo useradd -g ${NEW_GID} -u ${NEW_UID} ${USER}; \
 sudo usermod -aG wheel ${USER}; \
 printf "%s ALL=(ALL:ALL) NOPASSWD: ALL\n" "${USER}" >> /etc/sudoers; \
-fi
-
-# ls -l /etc/sudoers; \
-# cat /etc/sudoers; \
+fi; \
+ls -l /etc/sudoers; \
+cat /etc/sudoers; 
 # id ${USER}; \
-#
-
-USER ${NEW_UID}:${NEW_GID}
+# USER ${NEW_UID}:${NEW_GID}
 WORKDIR /var/home/${USER}

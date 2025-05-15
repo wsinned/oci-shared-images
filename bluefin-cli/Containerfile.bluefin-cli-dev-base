@@ -1,0 +1,8 @@
+# pinned on 13 May to keep builds fast - re-pin when needed
+FROM ghcr.io/ublue-os/bluefin-cli:latest@sha256:90075d31ba108190ebae3b257b13218cc02efad4730604fd454f0e7d34e3a7dc
+
+
+# dnf install -y info texinfo git neovim fastfetch fzf zoxide nodejs jq yq && \
+# rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
+# echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null && \
+# dnf update -y && dnf install -y code
