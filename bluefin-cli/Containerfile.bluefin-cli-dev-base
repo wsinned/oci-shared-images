@@ -1,5 +1,5 @@
 # pinned on 13 May to keep builds fast - re-pin when needed
-FROM ghcr.io/ublue-os/bluefin-cli:latest@sha256:90075d31ba108190ebae3b257b13218cc02efad4730604fd454f0e7d34e3a7dc
+FROM ghcr.io/ublue-os/bluefin-cli:latest@sha256:32f0f3e906c0a7e5eeffb2593793d606c2b104fffe0f351fb537074497a54680
 
 
 # dnf install -y info texinfo git neovim fastfetch fzf zoxide nodejs jq yq && \
