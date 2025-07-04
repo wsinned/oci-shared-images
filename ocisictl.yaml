@@ -15,6 +15,22 @@
   enabled: true
   assemble: true
 
+- name: bluefin-cli-python
+  path: bluefin-cli
+  enabled: true
+- name: bluefin-cli-python-dx
+  path: bluefin-cli
+  enabled: true
+  assemble: true
+
+- name: bluefin-cli-node
+  path: bluefin-cli
+  enabled: true
+- name: bluefin-cli-node-dx
+  path: bluefin-cli
+  enabled: true
+  assemble: true
+
 # - name: fedora41-python
 #   path: fedora41
 #   enabled: false
