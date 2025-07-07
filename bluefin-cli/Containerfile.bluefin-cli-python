@@ -1,4 +1,4 @@
 FROM bluefin-cli-dev-base:latest
 
-# RUN brew install python
 
+RUN apk add python3 poetry
