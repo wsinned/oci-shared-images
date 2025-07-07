@@ -1,4 +1,4 @@
 FROM bluefin-cli-dev-base:latest
 
-# RUN brew install node
+RUN apk add nodejs-24
 
