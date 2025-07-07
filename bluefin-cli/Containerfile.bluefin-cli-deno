@@ -1,5 +1,4 @@
 FROM bluefin-cli-dev-base:latest
 
-RUN curl -fsSL https://deno.land/install.sh | sh -s v2.3.6 && \
-  mv /root/.deno/bin/deno /usr/local/bin/deno
+RUN apk add deno
 
