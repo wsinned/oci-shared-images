@@ -1,0 +1,32 @@
+{
+  "name": "Deno",
+  "image": "bluefin-cli-deno-dx",
+
+  "containerEnv": {
+		"HOME": "/var/home/wsinned",
+		"TZ": "GMT",
+		"USER": "wsinned"
+	},
+
+	"mounts": [
+		{
+			"source": "/var/home/wsinned",
+			"target": "/var/home/wsinned",
+			"type": "bind"
+		}
+  ],
+
+  	"customizations": {
+		"vscode": {
+			"extensions": [
+				"justjavac.vscode-deno-extensionpack"
+			],
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "fish"
+			}
+		}
+	},
+
+	"remoteUser": "wsinned"
+
+}
