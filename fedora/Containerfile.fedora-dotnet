@@ -1,4 +1,4 @@
-FROM fedora41-python:latest
+FROM fedora-dev-base:latest
 
 RUN dnf update -y && dnf install -y dotnet-sdk-9.0
 

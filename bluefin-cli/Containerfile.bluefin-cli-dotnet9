@@ -1,4 +1,0 @@
-FROM bluefin-cli-dev-base:latest
-
-RUN apk add dotnet-9-sdk
-

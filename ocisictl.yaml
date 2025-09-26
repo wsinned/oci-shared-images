@@ -2,46 +2,60 @@
 # order *is* significant in this file
 # order here establishes processing order
 
-- name: bluefin-cli-dev-base
-  path: bluefin-cli
-  enabled: true
+# - name: bluefin-cli-dev-base
+#   path: bluefin-cli
+#   enabled: true
 
 
-- name: bluefin-cli-deno
-  path: bluefin-cli
+# - name: bluefin-cli-deno
+#   path: bluefin-cli
+#   enabled: true
+# - name: bluefin-cli-deno-dx
+#   path: bluefin-cli
+#   enabled: true
+#   assemble: true
+
+# - name: bluefin-cli-python
+#   path: bluefin-cli
+#   enabled: true
+# - name: bluefin-cli-python-dx
+#   path: bluefin-cli
+#   enabled: true
+#   assemble: true
+
+# - name: bluefin-cli-node
+#   path: bluefin-cli
+#   enabled: true
+# - name: bluefin-cli-node-dx
+#   path: bluefin-cli
+#   enabled: true
+#   assemble: true
+
+
+- name: fedora-dev-base
+  path: fedora
   enabled: true
-- name: bluefin-cli-deno-dx
-  path: bluefin-cli
+
+- name: fedora-python
+  path: fedora
+  enabled: false
+- name: fedora-python-dx
+  path: fedora
+  enabled: false
+  assemble: false
+
+- name: fedora-dotnet
+  path: fedora
+  enabled: false
+- name: fedora-dotnet-dx
+  path: fedora
+  enabled: false
+  assemble: false
+
+- name: fedora-deno
+  path: fedora
+  enabled: true
+- name: fedora-deno-dx
+  path: fedora
   enabled: true
   assemble: true
-
-- name: bluefin-cli-python
-  path: bluefin-cli
-  enabled: true
-- name: bluefin-cli-python-dx
-  path: bluefin-cli
-  enabled: true
-  assemble: true
-
-- name: bluefin-cli-node
-  path: bluefin-cli
-  enabled: true
-- name: bluefin-cli-node-dx
-  path: bluefin-cli
-  enabled: true
-  assemble: true
-
-# - name: fedora41-python
-#   path: fedora41
-#   enabled: false
-# - name: fedora41-python-dx
-#   path: fedora41
-#   enabled: false
-#   assemble: false
-
-# - name: fedora41-dotnet
-#   path: fedora41
-#   enabled: false
-# - name: fedora41-dotnet-dx
-#   path: fedora41
-#   enabled: false

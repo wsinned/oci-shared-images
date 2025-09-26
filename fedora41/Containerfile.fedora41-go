@@ -1,3 +1,0 @@
-FROM fedora41-python:latest
-
-RUN dnf update -y && dnf5 install --setopt=install_weak_deps=False -y golang gopls

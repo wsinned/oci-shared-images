@@ -1,0 +1,5 @@
+FROM fedora-dev-base:latest
+
+ENV DENO_INSTALL=/usr/local
+RUN curl -fsSL https://deno.land/install.sh | sh 
+
