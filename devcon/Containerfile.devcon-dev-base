@@ -3,4 +3,4 @@ FROM mcr.microsoft.com/devcontainers/base
 RUN apt-get update && \ 
 apt-get install -y git vim fastfetch fzf zoxide nodejs jq yq fish atuin
 
-RUN curl -sS https://starship.rs/install.sh --yes | sh
+RUN curl -sS https://starship.rs/install.sh | sh -s -- -y -b /usr/local/bin

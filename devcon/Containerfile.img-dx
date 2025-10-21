@@ -3,26 +3,19 @@ ARG TAG="latest"
 
 FROM $IMG:$TAG
 ARG USER
+ARG DEV_USER=devuser
 ARG UID=1000
 ARG GID=1000
 ARG NEW_UID=$UID
 ARG NEW_GID=$GID
 
-# RUN if ! grep "${USER}" /etc/group >/dev/null 2>&1 && ;then sudo groupadd -g ${NEW_GID} ${USER};fi
+RUN sudo useradd -g ${NEW_GID} -u ${NEW_UID} ${DEV_USER}; \
+sudo usermod -aG wheel ${DEV_USER}; \
+printf "%s ALL=(ALL:ALL) NOPASSWD: ALL\n" "${DEV_USER}" >> /etc/sudoers; \
+ls -l /etc/sudoers; \
+cat /etc/sudoers; \
+id ${DEV_USER}; 
 
-# Ensure passwordless sudo is set up for user
-
-RUN if ! grep "${USER}" /etc/passwd >/dev/null 2>&1; \
-then \
-sudo useradd -g ${NEW_GID} -u ${NEW_UID} ${USER}; \
-sudo usermod -aG wheel ${USER}; \
-printf "%s ALL=(ALL:ALL) NOPASSWD: ALL\n" "${USER}" >> /etc/sudoers; \
-fi
-
-# ls -l /etc/sudoers; \
-# cat /etc/sudoers; \
-# id ${USER}; \
-#
 
 USER ${NEW_UID}:${NEW_GID}
-WORKDIR /var/home/${USER}
+WORKDIR /var/home/${DEV_USER}

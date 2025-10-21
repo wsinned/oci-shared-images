@@ -34,7 +34,7 @@
 
 - name: fedora-dev-base
   path: fedora
-  enabled: true
+  enabled: false
 
 - name: fedora-python
   path: fedora
@@ -54,8 +54,20 @@
 
 - name: fedora-deno
   path: fedora
-  enabled: true
+  enabled: false
 - name: fedora-deno-dx
   path: fedora
+  enabled: false
+  assemble: false
+
+- name: devcon-dev-base
+  path: devcon
   enabled: true
-  assemble: true
+
+- name: devcon-deno
+  path: devcon
+  enabled: true
+- name: devcon-deno-dx
+  path: devcon
+  enabled: true
+  assemble: false
