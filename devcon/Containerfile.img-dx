@@ -10,7 +10,7 @@ ARG NEW_UID=$UID
 ARG NEW_GID=$GID
 
 RUN sudo useradd -g ${NEW_GID} -u ${NEW_UID} ${DEV_USER}; \
-sudo usermod -aG wheel ${DEV_USER}; \
+sudo usermod -aG sudo ${DEV_USER}; \
 printf "%s ALL=(ALL:ALL) NOPASSWD: ALL\n" "${DEV_USER}" >> /etc/sudoers; \
 ls -l /etc/sudoers; \
 cat /etc/sudoers; \
