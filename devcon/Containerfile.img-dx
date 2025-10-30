@@ -2,14 +2,9 @@ ARG IMG="devcon-dev-base"
 ARG TAG="latest"
 
 FROM $IMG:$TAG
-ARG USER
 ARG DEV_USER=devuser
-ARG UID=1000
-ARG GID=1000
-ARG NEW_UID=$UID
-ARG NEW_GID=$GID
 
-RUN sudo useradd -g ${NEW_GID} -u ${NEW_UID} ${DEV_USER}; \
+RUN sudo useradd ${DEV_USER}; \
 sudo usermod -aG sudo ${DEV_USER}; \
 printf "%s ALL=(ALL:ALL) NOPASSWD: ALL\n" "${DEV_USER}" >> /etc/sudoers; \
 ls -l /etc/sudoers; \
@@ -17,5 +12,5 @@ cat /etc/sudoers; \
 id ${DEV_USER}; 
 
 
-USER ${NEW_UID}:${NEW_GID}
+USER ${DEV_USER}
 WORKDIR /var/home/${DEV_USER}

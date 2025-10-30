@@ -6,7 +6,6 @@
 #   path: bluefin-cli
 #   enabled: true
 
-
 # - name: bluefin-cli-deno
 #   path: bluefin-cli
 #   enabled: true
@@ -30,7 +29,6 @@
 #   path: bluefin-cli
 #   enabled: true
 #   assemble: true
-
 
 - name: fedora-dev-base
   path: fedora
@@ -70,4 +68,4 @@
 - name: devcon-deno-dx
   path: devcon
   enabled: true
-  assemble: false
+  assemble: true
